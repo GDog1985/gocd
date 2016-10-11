@@ -121,9 +121,17 @@ public class FileUtil {
         }
     }
 
-
     public static boolean deleteFolder(File testFolder) {
-        return FileUtils.deleteQuietly(testFolder);
+        return deleteQuietly(testFolder);
+    }
+
+    public static boolean deleteQuietly(File file) {
+        try {
+            FileUtils.forceDelete(file);
+        } catch (IOException ignored) {
+            return false;
+        }
+        return true;
     }
 
 
@@ -454,7 +462,7 @@ public class FileUtil {
             if (!file.exists()) {
                 return;
             }
-            FileUtils.deleteQuietly(file);
+            deleteQuietly(file);
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
